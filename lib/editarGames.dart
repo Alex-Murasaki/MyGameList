@@ -26,12 +26,10 @@ class _CardEditGameState extends State<EditGame> {
   TextEditingController _year = TextEditingController();
   TextEditingController _plataform = TextEditingController();
   int valida;
-  var _Status = ["Não lido", "Lendo", "Lido"];
-  var _Av = ["0", "1", "2", "3", "4", "5"];
   final _nameFocus = FocusNode();
   final _yearFocus = FocusNode();
 
-  helper Crud = helper();
+  helper crud = helper();
   Game _aux;
 
   @override
@@ -55,7 +53,7 @@ class _CardEditGameState extends State<EditGame> {
   @override
   Widget build(BuildContext context) {
 
-    Widget Tela() {
+    Widget tela() {
       return Container(
         child: Column(
           children: <Widget>[
@@ -184,9 +182,9 @@ class _CardEditGameState extends State<EditGame> {
               _aux.year = int.parse(_year.text);
               _aux.plataform = _plataform.text;
               if (valida == 0) {
-                Crud.InsertGame(_aux);
+                crud.InsertGame(_aux);
               } else {
-                Crud.EditGame(_aux);
+                crud.EditGame(_aux);
               }
               Navigator.pop(
                 context,
@@ -205,7 +203,7 @@ class _CardEditGameState extends State<EditGame> {
         padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0.0),
         physics: ScrollPhysics(),
         child: Column(
-          children: <Widget>[Tela()],
+          children: <Widget>[tela()],
         ),
       ),
     );

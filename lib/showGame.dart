@@ -48,10 +48,6 @@ class _ShowGameState extends State<ShowGame> {
   }
 
   void updateState() {
-    print('ENTROOOOOOOOOOOOOOOOOOUUUUUUUUUUUUUU!!!!!!!!!!!');
-    print('nome: $_name');
-    String auxname = _aux.name;
-    print('nomeaux: $auxname');
     setState((){
       _name = _aux.name;
       _publisher = _aux.publisher;
@@ -60,13 +56,11 @@ class _ShowGameState extends State<ShowGame> {
       _year = _aux.year.toString();
       _plataform = _aux.plataform;  
     });
-    print('nome: $_name');
   }
 
   @override
   Widget build(BuildContext context) {
 
-    print('CONEÇOU');
     Crud.getThisGame(_aux.id).then((thisGame) {
       setState(() {
         _aux = thisGame;
@@ -236,15 +230,7 @@ class _ShowGameState extends State<ShowGame> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           _ScreenGame(game: _aux);
-          print('1111111111111111111');
-          setState(() {
-            print('222222222222222222222');
-            _aux = Crud.getThisGame(_aux.id) as Game;  
-            print('33333333333333333333333');
-          });
-          print('444444444444444444444444');
           updateState();
-          print('5555555555555555555');
         },
         child: Icon(Icons.edit),
         backgroundColor: Colors.cyan,

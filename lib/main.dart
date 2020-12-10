@@ -1,9 +1,9 @@
 import 'dart:io';
 
+import 'package:MyGameList/editarGames.dart';
 import 'package:MyGameList/showGame.dart';
 import 'package:flutter/material.dart';
 import 'games.dart';
-import 'editarGames.dart';
 
 void main() {
   runApp(MaterialApp(home: Home()));
@@ -18,7 +18,7 @@ class HomeState extends State<Home> {
   helper Crud = helper();
   List<Game> listGames = List();
 
-  Function Update() {
+  Update() {
     Crud.getAllGames().then((list) {
       setState(() {
         listGames = list;
@@ -40,8 +40,6 @@ class HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    final Color active = Colors.cyan;
-    final Color inactive = Colors.grey;
 
     String _brokenLine(String text) {
       String res = "";
@@ -63,43 +61,6 @@ class HomeState extends State<Home> {
         }
       }
       return res;
-    }
-
-    Color _isActive(int actives, current) {
-      if (current <= actives) {
-        return active;
-      } else {
-        return inactive;
-      }
-    }
-
-    Widget _Stars(int avaliate) {
-      return Container(
-        child: Row(
-          children: <Widget>[
-            Icon(
-              Icons.star,
-              color: _isActive(avaliate, 1),
-            ),
-            Icon(
-              Icons.star,
-              color: _isActive(avaliate, 2),
-            ),
-            Icon(
-              Icons.star,
-              color: _isActive(avaliate, 3),
-            ),
-            Icon(
-              Icons.star,
-              color: _isActive(avaliate, 4),
-            ),
-            Icon(
-              Icons.star,
-              color: _isActive(avaliate, 5),
-            ),
-          ],
-        ),
-      );
     }
 
     Widget _GameCard(BuildContext context, int index) {
@@ -141,30 +102,6 @@ class HomeState extends State<Home> {
                                 'Publisher: ' + listGames[index].publisher ?? ""),
                             style: TextStyle(fontSize: 15.0),
                           ),
-                          // Divider(
-                          //   height: 5,
-                          // ),
-                          // Text(
-                          //   _brokenLine(
-                          //       'Genre: ' + listGames[index].genre ?? ""),
-                          //   style: TextStyle(fontSize: 15.0),
-                          // ),
-                          // Divider(
-                          //   height: 5,
-                          // ),
-                          // Text(
-                          //   _brokenLine(
-                          //       'Devs: ' + listGames[index].devs ?? ""),
-                          //   style: TextStyle(fontSize: 15.0),
-                          // ),
-                          // Divider(
-                          //   height: 5,
-                          // ),
-                          // Text(
-                          //   _brokenLine(
-                          //       'Year: ' + listGames[index].year.toString() ?? ""),
-                          //   style: TextStyle(fontSize: 15.0),
-                          // ),
                           Divider(
                             height: 5,
                           ),
@@ -231,7 +168,7 @@ class HomeState extends State<Home> {
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            _ScreenGame();
+            _EditGame();
             Update();
           },
           child: Icon(Icons.add),
@@ -262,6 +199,16 @@ class HomeState extends State<Home> {
         context,
         MaterialPageRoute(
             builder: (context) => ShowGame(
+                  games: game,
+                )));
+    Update();
+  }
+  
+  void _EditGame({Game game}) async {
+    await Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => EditGame(
                   games: game,
                 )));
     Update();
